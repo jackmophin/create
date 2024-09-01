@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Text Example</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+  .text {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 0;
+    height: 100%;
+    white-space: nowrap;
+  }
+
+  .letter {
+    font-family: "Roboto Mono", monospace;
+    position: relative;
+    display: flex;
+  }
+  .html, body {
+      user-select: none;
+      overflow: hidden;
+  }
+</style>
+<div id='text' class='text'></div>
+<script>
+  function center(id) {
+    const element = document.getElementById(id)
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const elementWidth = element.offsetWidth;
+    const elementHeight = element.offsetHeight;
+    const left = (viewportWidth - elementWidth) / 2;
+    const top = (viewportHeight - elementHeight) / 2;
+    element.style.position = 'relative';
+    element.style.left = `${left}px`;
+    element.style.top = `${top}px`;
+}
+center('text')
+  const text = document.getElementById('text')
+  const innerText = 'Create!'
+  for (let i = 0; i < innerText.length; i++) {
+    const t = document.createElement("div");
+    t.style.fontSize = `${100 - (innerText.length * 5)}px`
+    t.textContent = innerText.charAt(i);
+    t.className = "letter";
+    text.appendChild(t);
+  }
+    const letters = Array.from(text.children);
+    const timers = letters.map((_, index) => index * 0.1); 
+            function render() {
+            letters.forEach((child, index) => {
+                timers[index] += 0.05;
+                const y = Math.sin((timers[index]) * 2) * 15;
+                child.style.transform = `translateY(${y}px)`;
+            });
+            requestAnimationFrame(render);
+        }
+
+        requestAnimationFrame(render);
+</script>
+</html>
